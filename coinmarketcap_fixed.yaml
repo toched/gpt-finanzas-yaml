@@ -1,0 +1,38 @@
+openapi: 3.1.0
+info:
+  title: CoinMarketCap - Datos de Criptomonedas
+  description: Consulta precios, volumen y capitalización de mercado de cualquier criptomoneda usando la API de CoinMarketCap.
+  version: '1.0'
+servers:
+  - url: https://pro-api.coinmarketcap.com/v1
+paths:
+  /cryptocurrency/quotes/latest:
+    get:
+      operationId: get_crypto_data
+      summary: Obtener datos actuales de una criptomoneda
+      parameters:
+        - name: symbol
+          in: query
+          description: Símbolo de la criptomoneda (ej. BTC, ETH, QUBIC)
+          required: true
+          schema:
+            type: string
+        - name: convert
+          in: query
+          description: Moneda de conversión (ej. USD, EUR)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Datos de precio y capitalización
+          content:
+            application/json:
+              example:
+                data:
+                  BTC:
+                    quote:
+                      USD:
+                        price: 29345.67
+                        volume_24h: 123456789
+                        market_cap: 567890000
