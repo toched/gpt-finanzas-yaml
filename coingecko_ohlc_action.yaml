@@ -1,0 +1,39 @@
+openapi: 3.1.0
+info:
+  title: CoinGecko OHLC - Datos de Velas
+  description: Obtiene datos de velas (OHLC) para una criptomoneda específica desde CoinGecko.
+  version: '1.0'
+servers:
+  - url: https://api.coingecko.com/api/v3
+paths:
+  /coins/{id}/ohlc:
+    get:
+      operationId: get_ohlc_data
+      summary: Obtener datos OHLC (Open, High, Low, Close)
+      parameters:
+        - name: id
+          in: path
+          description: ID de la criptomoneda (ej. bitcoin, ethereum, solana, qubic, etc.)
+          required: true
+          schema:
+            type: string
+        - name: vs_currency
+          in: query
+          description: Moneda de referencia (ej. usd, eur)
+          required: true
+          schema:
+            type: string
+        - name: days
+          in: query
+          description: Rango de días (1, 7, 14, 30, 90, 180, 365, max)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de velas con [timestamp, open, high, low, close]
+          content:
+            application/json:
+              example:
+                - [1622505600000, 37000.0, 37500.0, 36500.0, 37200.0]
+                - [1622592000000, 37200.0, 38000.0, 37000.0, 37800.0]

@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: Precio de criptomonedas - CoinGecko
+  description: Permite consultar el precio actual de cualquier criptomoneda listada en CoinGecko en cualquier moneda fiat o cripto.
+  version: '1.0'
+servers:
+  - url: https://api.coingecko.com/api/v3
+paths:
+  /simple/price:
+    get:
+      operationId: get_crypto_price
+      summary: Obtener el precio actual de una criptomoneda
+      parameters:
+        - name: ids
+          in: query
+          description: ID de la criptomoneda según CoinGecko (ej. bitcoin, ethereum, qubic, solana, etc.)
+          required: true
+          schema:
+            type: string
+        - name: vs_currencies
+          in: query
+          description: Moneda de referencia (ej. usd, eur, mxn, btc, eth, etc.)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Precio actual de la criptomoneda
+          content:
+            application/json:
+              example:
+                bitcoin:
+                  usd: 29345.67
+                  eur: 26999.12

@@ -1,0 +1,38 @@
+openapi: 3.1.0
+info:
+  title: Calendario Económico - Investing.com
+  description: Obtiene eventos macroeconómicos importantes desde la página de Investing.com.
+  version: '1.0'
+servers:
+  - url: https://www.investing.com
+paths:
+  /economic-calendar:
+    get:
+      operationId: get_economic_events
+      summary: Obtener eventos macroeconómicos actuales
+      parameters:
+        - name: country
+          in: query
+          description: País para filtrar eventos (ej. united-states, euro-zone, china)
+          required: false
+          schema:
+            type: string
+        - name: importance
+          in: query
+          description: Nivel de impacto (1=bajo, 2=medio, 3=alto)
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de eventos económicos
+          content:
+            application/json:
+              example:
+                - time: "08:30"
+                  country: "United States"
+                  event: "Non-Farm Payrolls"
+                  impact: "High"
+                  actual: "250K"
+                  forecast: "200K"
+                  previous: "180K"
