@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: QUBIC Tools API
+  version: 1.0.0
+  description: Acciones personalizadas para obtener precio y gráfico de QUBIC
+
+paths:
+  /qubic-price:
+    get:
+      operationId: getQubicPrice
+      summary: Obtener precio actual de QUBIC en USD desde CoinGecko
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          schema:
+            type: string
+          example: qubic
+        - name: vs_currencies
+          in: query
+          required: true
+          schema:
+            type: string
+          example: usd
+      responses:
+        '200':
+          description: Precio actual de QUBIC
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  qubic:
+                    type: object
+                    properties:
+                      usd:
+                        type: number
+                        example: 0.00000214
+      x-openai-is-user-action: true
+      x-openai-action-name: getQubicPrice
+      x-openai-action-description: Devuelve el precio actual de QUBIC usando CoinGecko
+      x-openai-action-authentication: none
+      x-openai-action-url: https://api.coingecko.com/api/v3/simple/price
+
+  /qubic-chart:
+    get:
+      operationId: getQubicChart
+      summary: Obtener enlace al gráfico de QUBIC en TradingView
+      responses:
+        '200':
+          description: Enlace al gráfico de QUBIC
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: "https://es.tradingview.com/chart/zzGLvfmT/?symbol=CRYPTO%3AQUBICUSD"
+      x-openai-is-user-action: true
+      x-openai-action-name: getQubicChart
+      x-openai-action-description: Muestra el enlace al gráfico de QUBIC en TradingView
+      x-openai-action-authentication: none
